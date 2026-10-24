@@ -1,0 +1,58 @@
+---
+import Icon from '../ui/Icon.astro';
+import { SITE } from '../../config/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'flex flex-col w-full overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface-alt shadow-xs',
+    className,
+  ]}
+>
+  {/* Hlavička mapy s adresou a tlačítkom na otvorenie */}
+  <div class="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-white px-5 py-3.5">
+    <div class="flex items-center gap-2.5">
+      <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-tint text-primary">
+        <Icon name="map-pin" size={18} />
+      </div>
+      <div>
+        <h4 class="text-sm font-bold text-ink">
+          Ordinace {SITE.name} Brno
+        </h4>
+        <p class="text-xs text-muted">
+          {SITE.address.street}, {SITE.address.city} &middot; Zvonek č. {SITE.address.doorbell}
+        </p>
+      </div>
+    </div>
+
+    <a
+      href={SITE.googleMapsUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-semibold text-primary transition hover:bg-tint"
+    >
+      <span>Otevřít v Google Mapách</span>
+      <Icon name="external-link" size={13} class="text-primary" />
+    </a>
+  </div>
+
+  {/* Priamo načítaná interaktívna Google mapa */}
+  <div class="relative h-[380px] w-full bg-surface-alt">
+    <iframe
+      src={SITE.googleMapsEmbed}
+      width="100%"
+      height="100%"
+      style="border: 0;"
+      loading="lazy"
+      title={`Mapa umístění ordinace ${SITE.name} – ${SITE.address.street}, Brno`}
+      referrerpolicy="no-referrer-when-downgrade"
+      class="absolute inset-0 h-full w-full"
+    ></iframe>
+  </div>
+</div>

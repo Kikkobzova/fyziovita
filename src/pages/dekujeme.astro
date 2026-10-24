@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/layout/Footer.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import { SITE } from '../config/site';
+---
+
+<BaseLayout
+  title={`Děkujeme za zprávu | ${SITE.name}`}
+  description="Vaše zpráva byla úspěšně odeslána. Odpovím vám obvykle do 2 pracovních dnů."
+  noindex={true}
+>
+  <section class="py-20 md:py-32">
+    <Container class="text-center">
+      <div class="mx-auto max-w-xl rounded-[var(--radius-card)] border border-line bg-white p-8 md:p-12 shadow-sm">
+        <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-tint text-primary">
+          <Icon name="check" size={32} strokeWidth={2.5} />
+        </div>
+
+        <h1 class="text-2xl font-extrabold text-ink md:text-3xl">
+          Děkuji za vaši zprávu
+        </h1>
+
+        <p class="mt-4 text-base leading-relaxed text-muted md:text-lg">
+          Zprávu jsem v pořádku přijala. Ozvu se vám zpět na uvedený e-mail {SITE.emailResponse}.
+        </p>
+
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button href="/" variant="primary" size="lg">
+            <span>Zpět na úvodní stránku</span>
+            <Icon name="arrow-right" size={16} />
+          </Button>
+
+          <Button href="/#kontakt" variant="secondary" size="lg">
+            <span>Kontaktní informace</span>
+          </Button>
+        </div>
+
+        <div class="mt-10 border-t border-line/60 pt-6 text-xs text-muted">
+          <p>
+            V případě naléhavého dotazu mi můžete zavolat nebo napsat SMS na{' '}
+            <a href={`tel:${SITE.phone}`} class="font-bold text-ink hover:text-primary">
+              {SITE.phoneDisplay}
+            </a>.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

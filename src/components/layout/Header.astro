@@ -1,0 +1,187 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../ui/Container.astro';
+import BookingButton from '../ui/BookingButton.astro';
+import Icon from '../ui/Icon.astro';
+import { SITE } from '../../config/site';
+import logoSymbol from '../../assets/logo/processed/logo-symbol-header.png';
+
+const navItems = [
+  { label: 'Služby', href: '/#sluzby' },
+  { label: 'Ceník', href: '/#cenik' },
+  { label: 'O mně', href: '/#o-mne' },
+  { label: 'Kontakt', href: '/#kontakt' },
+  { label: 'FAQ', href: '/#faq' },
+  ...(SITE.flags.showBlogInNav ? [{ label: 'Články', href: '/clanky/' }] : []),
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur-md">
+  <Container class="flex h-16 items-center justify-between md:h-[76px]">
+    {/* Logo a názov */}
+    <a
+      href="/"
+      aria-label="FyzioVita – úvodní stránka"
+      class="group flex items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg p-1"
+    >
+      <Image
+        src={logoSymbol}
+        alt=""
+        class="h-9 w-auto md:h-10 shrink-0 object-contain transition-transform group-hover:scale-105"
+        width={80}
+        height={108}
+        loading="eager"
+      />
+      <div class="flex flex-col">
+        <span class="text-xl font-extrabold tracking-tight leading-tight">
+          <span class="text-[var(--color-blue-ink)]">Fyzio</span><span class="text-[var(--color-green-ink)]">Vita</span>
+        </span>
+        <span class="hidden text-xs font-medium text-muted sm:inline-block leading-none">
+          {SITE.personName}
+        </span>
+      </div>
+    </a>
+
+    {/* Desktop navigácia */}
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Hlavní navigace">
+      <ul class="flex items-center gap-7">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="text-sm font-semibold text-ink transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md px-1 py-0.5"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <BookingButton size="md" location="header-desktop" class="ml-2" />
+    </nav>
+
+    {/* Mobilné ovládanie (vždy viditeľné CTA + burger tlačidlo) */}
+    <div class="flex items-center gap-2 lg:hidden">
+      <BookingButton size="sm" shortText location="header-mobile" />
+
+      <button
+        id="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Otevřít menu"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink hover:bg-tint transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      >
+        <span id="menu-icon-open">
+          <Icon name="menu" size={24} />
+        </span>
+        <span id="menu-icon-close" class="hidden">
+          <Icon name="x" size={24} />
+        </span>
+      </button>
+    </div>
+  </Container>
+
+  {/* Mobilné rozbaľovacie menu */}
+  <div
+    id="mobile-menu"
+    class="hidden border-b border-line bg-white px-5 pt-3 pb-6 shadow-xl lg:hidden"
+    aria-hidden="true"
+  >
+    <nav class="flex flex-col divide-y divide-line/60" aria-label="Mobilní navigace">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class="mobile-nav-link flex min-h-[48px] items-center text-base font-semibold text-ink hover:text-primary transition-colors"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="mt-6 flex flex-col gap-3 pt-3 border-t border-line">
+      <BookingButton size="lg" location="header-mobile-drawer" class="w-full" />
+
+      <div class="mt-2 flex flex-col gap-2 text-sm text-muted">
+        <a
+          href={`tel:${SITE.phone}`}
+          class="inline-flex items-center gap-2 hover:text-primary transition-colors py-1"
+        >
+          <Icon name="phone" size={18} class="text-primary" />
+          <span>{SITE.phoneDisplay}</span>
+        </a>
+        <a
+          href={`mailto:${SITE.email}`}
+          class="inline-flex items-center gap-2 hover:text-primary transition-colors py-1"
+        >
+          <Icon name="mail" size={18} class="text-primary" />
+          <span>{SITE.email}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  function setupMobileMenu() {
+    const toggleBtn = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    const openIcon = document.getElementById('menu-icon-open');
+    const closeIcon = document.getElementById('menu-icon-close');
+    const navLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (!toggleBtn || !menu || !openIcon || !closeIcon) return;
+
+    function openMenu() {
+      toggleBtn?.setAttribute('aria-expanded', 'true');
+      toggleBtn?.setAttribute('aria-label', 'Zavřít menu');
+      menu?.classList.remove('hidden');
+      menu?.setAttribute('aria-hidden', 'false');
+      openIcon?.classList.add('hidden');
+      closeIcon?.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeMenu() {
+      toggleBtn?.setAttribute('aria-expanded', 'false');
+      toggleBtn?.setAttribute('aria-label', 'Otevřít menu');
+      menu?.classList.add('hidden');
+      menu?.setAttribute('aria-hidden', 'true');
+      openIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      if (isExpanded) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    // Zavretie po kliknutí na navigačný odkaz
+    navLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        closeMenu();
+      });
+    });
+
+    // Zavretie klávesou Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggleBtn.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+        toggleBtn.focus();
+      }
+    });
+  }
+
+  // Inicializácia pri načítaní a po Astro page swap
+  setupMobileMenu();
+  document.addEventListener('astro:after-swap', setupMobileMenu);
+</script>

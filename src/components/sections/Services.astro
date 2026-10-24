@@ -1,0 +1,49 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Icon from '../ui/Icon.astro';
+import { SERVICES, MEDICAL_DISCLAIMER_NOTICE } from '../../data/services';
+---
+
+<section id="sluzby" class="bg-surface-alt py-16 md:py-24">
+  <Container>
+    <SectionHeading
+      eyebrow="Služby"
+      title="S čím vám mohu pomoci"
+      withDots={true}
+      align="center"
+    />
+
+    {/* Grid 6 kariet so službami – na mobile kompaktnejšie pre ľahké scrollovanie */}
+    <div class="mt-8 sm:mt-12 grid grid-cols-1 gap-3.5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+      {
+        SERVICES.map((service) => (
+          <div class="flex flex-col rounded-2xl border border-line bg-white p-4.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition hover:shadow-md sm:p-6 md:p-8 sm:rounded-[var(--radius-card)]">
+            <div class="mb-3 sm:mb-5 inline-flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl bg-tint text-primary">
+              <Icon name={service.icon} size={22} />
+            </div>
+            <h3 class="text-lg font-bold tracking-tight text-ink sm:text-xl md:text-2xl">
+              {service.title}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted sm:text-base">
+              {service.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    {/* Upozornenie: Kedy najskôr k lekárovi */}
+    <div class="mt-12 mx-auto max-w-3xl rounded-r-2xl rounded-l-md border-l-4 border-primary bg-white p-5 md:p-6 shadow-xs">
+      <div class="flex items-start gap-4">
+        <div class="shrink-0 text-primary mt-0.5">
+          <Icon name="info" size={24} />
+        </div>
+        <div class="text-sm leading-relaxed text-ink">
+          <strong class="font-bold text-ink">{MEDICAL_DISCLAIMER_NOTICE.title}:</strong>{' '}
+          <span class="text-muted">{MEDICAL_DISCLAIMER_NOTICE.text}</span>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

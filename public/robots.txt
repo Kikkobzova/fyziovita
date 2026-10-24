@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /dekujeme/
+
+Sitemap: https://fyziovita.cz/sitemap-index.xml

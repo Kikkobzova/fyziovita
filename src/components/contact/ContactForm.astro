@@ -1,0 +1,134 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'rounded-[var(--radius-card)] border border-line bg-white p-6 md:p-8 shadow-xs',
+    className,
+  ]}
+>
+  <div class="mb-6">
+    <div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-tint text-primary">
+      <Icon name="mail" size={20} />
+    </div>
+    <h3 class="text-xl font-bold text-ink md:text-2xl">
+      Máte dotaz?
+    </h3>
+    <p class="mt-1 text-sm text-muted">
+      Pro objednání prosím použijte rezervační systém nebo přímý kontakt. Tento formulář slouží pro obecné dotazy a zprávy.
+    </p>
+  </div>
+
+  <form
+    name="kontakt"
+    method="POST"
+    action="/dekujeme/"
+    data-netlify="true"
+    netlify-honeypot="bot-field"
+    class="space-y-4"
+  >
+    <input type="hidden" name="form-name" value="kontakt" />
+
+    {/* Honeypot pole proti spamu */}
+    <p class="hidden" aria-hidden="true">
+      <label>
+        Nevyplňujte toto pole: <input name="bot-field" tabindex="-1" />
+      </label>
+    </p>
+
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {/* Jméno a příjmení */}
+      <div>
+        <label for="form-name" class="block text-xs font-semibold text-ink uppercase tracking-wider mb-1.5">
+          Jméno a příjmení <span class="text-primary">*</span>
+        </label>
+        <input
+          type="text"
+          id="form-name"
+          name="name"
+          required
+          placeholder="Jan Novák"
+          class="w-full rounded-xl border border-line bg-surface-alt px-4 py-2.5 text-sm text-ink placeholder:text-muted/60 focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition"
+        />
+      </div>
+
+      {/* E-mail */}
+      <div>
+        <label for="form-email" class="block text-xs font-semibold text-ink uppercase tracking-wider mb-1.5">
+          Váš e-mail <span class="text-primary">*</span>
+        </label>
+        <input
+          type="email"
+          id="form-email"
+          name="email"
+          required
+          placeholder="jan@example.cz"
+          class="w-full rounded-xl border border-line bg-surface-alt px-4 py-2.5 text-sm text-ink placeholder:text-muted/60 focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition"
+        />
+      </div>
+    </div>
+
+    {/* Telefon */}
+    <div>
+      <label for="form-phone" class="block text-xs font-semibold text-ink uppercase tracking-wider mb-1.5">
+        Telefonní číslo <span class="text-xs font-normal text-muted lowercase">(volitelné)</span>
+      </label>
+      <input
+        type="tel"
+        id="form-phone"
+        name="phone"
+        placeholder="+420 123 456 789"
+        class="w-full rounded-xl border border-line bg-surface-alt px-4 py-2.5 text-sm text-ink placeholder:text-muted/60 focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition"
+      />
+    </div>
+
+    {/* Zpráva */}
+    <div>
+      <label for="form-message" class="block text-xs font-semibold text-ink uppercase tracking-wider mb-1.5">
+        Váš dotaz nebo zpráva <span class="text-primary">*</span>
+      </label>
+      <textarea
+        id="form-message"
+        name="message"
+        rows={4}
+        required
+        placeholder="Popište stručně vaše potíže nebo dotaz..."
+        class="w-full rounded-xl border border-line bg-surface-alt px-4 py-2.5 text-sm text-ink placeholder:text-muted/60 focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition resize-y"
+      ></textarea>
+    </div>
+
+    {/* Souhlas s ochranou osobních údajů */}
+    <div class="flex items-start gap-2.5 pt-1">
+      <input
+        type="checkbox"
+        id="form-consent"
+        name="consent"
+        required
+        class="mt-1 h-4 w-4 rounded border-line text-primary focus:ring-primary cursor-pointer"
+      />
+      <label for="form-consent" class="text-xs text-muted leading-relaxed cursor-pointer select-none">
+        Souhlasím se zpracováním osobních údajů pro účely odpovědi na dotaz v souladu se zásadami{' '}
+        <a href="/ochrana-osobnich-udaju/" class="text-primary underline hover:text-primary-hover" target="_blank">
+          Ochrany osobních údajů
+        </a>
+        . <span class="text-primary">*</span>
+      </label>
+    </div>
+
+    {/* Odesílací tlačítko */}
+    <div class="pt-2">
+      <Button type="submit" variant="primary" size="md" class="w-full sm:w-auto">
+        <span>Odeslat dotaz</span>
+        <Icon name="arrow-right" size={16} />
+      </Button>
+    </div>
+  </form>
+</div>

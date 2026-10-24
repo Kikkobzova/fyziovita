@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../ui/Container.astro';
+import BookingButton from '../ui/BookingButton.astro';
+import Icon from '../ui/Icon.astro';
+import SpineDots from '../ui/SpineDots.astro';
+import { SITE } from '../../config/site';
+import heroPhoto from '../../assets/physio-vita-photos/terapie-cviceni-s-valcem.jpg';
+
+const bulletPoints = [
+  'Terapie: 55 minut, během kterých se soustředím pouze na vás',
+  'Vyšetření, ošetření a instruktáž cvičení',
+  'Skvělá dostupnost z centra (zastávka tramvaje Masná)',
+];
+---
+
+<section class="relative overflow-hidden bg-surface py-12 md:py-20 lg:py-24">
+  <Container>
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+      {/* Ľavý textový stĺpec */}
+      <div class="flex flex-col items-start text-left">
+        {/* Eyebrow */}
+        <div class="mb-4 inline-flex items-center gap-2">
+          <SpineDots direction="horizontal" count={3} size="sm" />
+          <span class="text-sm font-semibold uppercase tracking-[0.14em] text-primary">
+            Fyzioterapie Brno &middot; Křenová 71
+          </span>
+        </div>
+
+        {/* H1 */}
+        <h1 class="text-[clamp(2.1rem,1.4rem+3vw,3.6rem)] font-extrabold leading-[1.08] tracking-tight text-ink">
+          Fyzioterapie v&nbsp;Brně, která vás vrátí do&nbsp;pohybu
+        </h1>
+
+        {/* Perex */}
+        <p class="mt-6 max-w-prose text-base leading-relaxed text-muted md:text-lg">
+          Jsem fyzioterapeutka {SITE.personName}. Pomáhám lidem s&nbsp;bolestmi zad, krční páteře a&nbsp;hlavy, sportovcům po&nbsp;zranění a&nbsp;všem, kdo se chtějí znovu hýbat bez bolesti a&nbsp;omezení. První návštěva začíná vyšetřením, na které rovnou navazuje samotné ošetření a&nbsp;nácvik cviků na doma. Při dalších setkáních pak společně zhodnotíme vaše pokroky a&nbsp;terapii upravíme přesně podle toho, jak vaše tělo reaguje.
+        </p>
+
+        {/* Odrážky s teal krúžkom */}
+        <ul class="mt-6 flex flex-col space-y-3">
+          {
+            bulletPoints.map((point) => (
+              <li class="flex items-center gap-3 text-base font-medium text-ink">
+                <span class="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-tint text-primary">
+                  <Icon name="check" size={14} strokeWidth={2.5} />
+                </span>
+                <span>{point}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        {/* CTA tlačidlo */}
+        <div class="mt-8 flex w-full flex-col gap-4 sm:flex-row sm:items-center">
+          <BookingButton size="lg" location="hero" />
+        </div>
+
+        {/* Mikrotext pod tlačidlami */}
+        <p class="mt-4 text-xs text-muted sm:text-sm">
+          Termíny: pátek odpoledne a sobota dopoledne &middot; {SITE.price.duration} min / {SITE.price.therapy} Kč
+        </p>
+      </div>
+
+      {/* Pravý vizuálny stĺpec s fotkou a dekoratívnym pozadím */}
+      <div class="relative mx-auto w-full max-w-lg lg:max-w-none">
+        {/* Dekoratívny posunutý blok bg-tint */}
+        <div
+          class="absolute -inset-2 sm:-inset-4 rounded-[var(--radius-img)] bg-tint transform -rotate-1 translate-x-2 translate-y-3 -z-10"
+          aria-hidden="true"
+        ></div>
+
+        {/* Dekoratívne SpineDots v rohu */}
+        <div class="absolute -top-3 -right-3 sm:-top-5 sm:-right-5 z-10 hidden sm:block">
+          <SpineDots direction="vertical" count={4} size="md" />
+        </div>
+
+        {/* Hlavná fotografia */}
+        <div class="relative overflow-hidden rounded-[var(--radius-img)] shadow-md border border-line">
+          <Image
+            src={heroPhoto}
+            alt="Fyzioterapeutka Kristýna Kobzová vede klienta při cvičení s masážním válcem v ordinaci FyzioVita v Brně"
+            class="aspect-4/3 sm:aspect-5/4 w-full object-cover"
+            loading="eager"
+            widths={[400, 640, 800, 1024]}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+          />
+
+          {/* Plávajúci štítok (≥ sm) */}
+          <div class="absolute bottom-4 left-4 hidden sm:inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-sm font-semibold text-ink shadow-md backdrop-blur-xs border border-line/60">
+            <Icon name="clock" size={16} class="text-primary" />
+            <span>55 min &middot; péče 1:1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

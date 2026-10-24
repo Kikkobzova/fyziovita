@@ -1,0 +1,58 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+export type ButtonVariant = 'primary' | 'secondary' | 'onDark' | 'ghost';
+export type ButtonSize = 'sm' | 'md' | 'lg';
+
+interface BaseProps {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  class?: string;
+}
+
+type AnchorProps = BaseProps & HTMLAttributes<'a'> & { href: string };
+type NativeButtonProps = BaseProps & HTMLAttributes<'button'> & { href?: undefined };
+
+type Props = AnchorProps | NativeButtonProps;
+
+const {
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  ...rest
+} = Astro.props as Props;
+
+const baseStyles =
+  'inline-flex items-center justify-center gap-2 font-semibold transition-colors duration-150 cursor-pointer select-none text-center disabled:opacity-50 disabled:pointer-events-none';
+
+const variantStyles: Record<ButtonVariant, string> = {
+  primary:
+    'rounded-full bg-primary text-white shadow-sm hover:bg-primary-hover active:bg-primary-hover',
+  secondary:
+    'rounded-full border-2 border-primary text-primary hover:bg-tint active:bg-tint',
+  onDark:
+    'rounded-full bg-white text-primary hover:bg-tint active:bg-tint shadow-sm',
+  ghost:
+    'text-primary hover:text-primary-hover hover:bg-tint/60 rounded-full',
+};
+
+const sizeStyles: Record<ButtonSize, string> = {
+  sm: 'px-4 py-2 text-sm min-h-10',
+  md: 'px-6 py-3 text-base min-h-11',
+  lg: 'px-6 py-3.5 text-base md:text-lg min-h-12',
+};
+
+const classes = [baseStyles, variantStyles[variant], sizeStyles[size], className];
+---
+
+{
+  'href' in rest && rest.href ? (
+    <a class:list={classes} {...(rest as HTMLAttributes<'a'>)}>
+      <slot />
+    </a>
+  ) : (
+    <button class:list={classes} {...(rest as HTMLAttributes<'button'>)}>
+      <slot />
+    </button>
+  )
+}

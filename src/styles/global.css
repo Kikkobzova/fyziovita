@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@import '@fontsource-variable/plus-jakarta-sans';
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary: #1D6B67;       /* tlačítka, odkazy, ikony */
+  --color-primary-hover: #154F4C;
+  --color-ink: #1B2B2A;           /* hlavní text */
+  --color-muted: #51605F;         /* sekundární text (kontrast AA na bílé i surface-alt) */
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #F5F8F3;   /* střídání sekcí */
+  --color-tint: #E8F1EF;          /* karty, chipy */
+  --color-line: #DCE4E0;          /* rámečky, oddělovače */
+
+  /* POUZE dekorativní (nesplňují kontrast pro text) */
+  --color-deco-blue: #7DA5CF;
+  --color-deco-green: #93BD55;
+  --color-deco-teal: #2E9490;
+
+  /* Textově bezpečné akcenty */
+  --color-blue-ink: #2F5F8F;
+  --color-green-ink: #4A7A1F;
+
+  --radius-card: 1.25rem;
+  --radius-img: 1.75rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+body {
+  @apply bg-surface text-ink font-sans antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}

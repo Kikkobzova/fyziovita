@@ -1,0 +1,36 @@
+---
+import Container from '../ui/Container.astro';
+import BookingButton from '../ui/BookingButton.astro';
+import SpineDots from '../ui/SpineDots.astro';
+import { SITE } from '../../config/site';
+
+const descriptionText = SITE.flags.rehatabActive
+  ? 'Volné termíny najdete v online kalendáři. Rezervace zabere méně než minutu.'
+  : 'Napište mi a domluvíme termín, který vám vyhovuje. Odpovím obvykle do 2 pracovních dnů.';
+---
+
+<section class="relative overflow-hidden bg-primary py-16 text-white md:py-20" aria-label="Výzva k rezervaci">
+  {/* Dekoratívne SpineDots na pozadí */}
+  <div class="pointer-events-none absolute -left-6 top-1/2 -translate-y-1/2 opacity-30 hidden md:block">
+    <SpineDots direction="vertical" count={5} size="lg" />
+  </div>
+  <div class="pointer-events-none absolute -right-6 top-1/2 -translate-y-1/2 opacity-30 hidden md:block">
+    <SpineDots direction="vertical" count={5} size="lg" />
+  </div>
+
+  <Container class="relative z-10 text-center">
+    <div class="mx-auto max-w-2xl">
+      <h2 class="text-[clamp(1.75rem,1.3rem+1.8vw,2.6rem)] font-extrabold leading-tight tracking-tight text-white">
+        Udělejte první krok k&nbsp;životu bez&nbsp;bolesti
+      </h2>
+
+      <p class="mt-4 text-base text-white/90 md:text-lg leading-relaxed">
+        {descriptionText}
+      </p>
+
+      <div class="mt-8 flex justify-center">
+        <BookingButton variant="onDark" size="lg" location="cta-band" />
+      </div>
+    </div>
+  </Container>
+</section>

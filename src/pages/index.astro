@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/layout/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import Services from '../components/sections/Services.astro';
+import Process from '../components/sections/Process.astro';
+import Pricing from '../components/sections/Pricing.astro';
+import About from '../components/sections/About.astro';
+import Reviews from '../components/sections/Reviews.astro';
+import Faq from '../components/sections/Faq.astro';
+import CtaBand from '../components/sections/CtaBand.astro';
+import Contact from '../components/sections/Contact.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { getPhysiotherapySchema, getFaqSchema } from '../lib/schema';
+import { getFaqList } from '../data/faq';
+import { SITE } from '../config/site';
+
+const clinicSchema = getPhysiotherapySchema();
+const faqSchema = getFaqSchema(getFaqList());
+---
+
+<BaseLayout
+  title={`Fyzioterapie Brno | ${SITE.name} – ${SITE.personName}`}
+  description="Fyzioterapie v Brně na Křenové. Bolesti zad, krční páteře a hlavy, sportovní fyzioterapie. Individuální péče 55 min. Objednejte se online."
+>
+  <Fragment slot="head">
+    <JsonLd schema={clinicSchema} />
+    <JsonLd schema={faqSchema} />
+  </Fragment>
+
+  {/* 1. Hero */}
+  <Hero />
+
+  {/* 2. #sluzby */}
+  <Services />
+
+  {/* 3. #prubeh */}
+  <Process />
+
+  {/* 4. #cenik */}
+  <Pricing />
+
+  {/* 5. #o-mne */}
+  <About />
+
+  {/* 6. Reviews (zobrazí se jen pokud je zapnutý flag a existují recenze) */}
+  <Reviews />
+
+  {/* 7. #kontakt a online #rezervace */}
+  <Contact />
+
+  {/* 8. #faq – časté otázky a odpovědi */}
+  <Faq />
+
+  {/* 9. Závěrečný CtaBand */}
+  <CtaBand />
+
+  <Footer slot="footer" />
+</BaseLayout>

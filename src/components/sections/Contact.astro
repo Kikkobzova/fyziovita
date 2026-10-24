@@ -1,0 +1,206 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Icon from '../ui/Icon.astro';
+import MapFacade from '../contact/MapFacade.astro';
+import Directions from '../contact/Directions.astro';
+import ContactForm from '../contact/ContactForm.astro';
+import { SITE } from '../../config/site';
+---
+
+<section id="kontakt" class="bg-surface py-16 md:py-24">
+  <Container>
+    <SectionHeading
+      eyebrow="Rezervace a kontakt"
+      title="Vyberte si termín nebo se ozvěte"
+      description="Rezervaci zvládnete přímo online v kalendáři níže. Potvrzení vám přijde ihned e-mailem a 24 hodin předem obdržíte připomenutí."
+      withDots={true}
+      align="center"
+      titleClass="text-2xl sm:text-3xl md:text-4xl"
+      descriptionClass="text-xs sm:text-base"
+    />
+
+    {/* Rezervačný kalendár RehaTab */}
+    <div
+      id="rezervace"
+      class="mt-8 sm:mt-12 overflow-hidden rounded-2xl border border-line bg-white shadow-xs scroll-mt-20 md:scroll-mt-28"
+    >
+      {/* Decentná horná lišta s odkazom na plné okno */}
+      <div class="flex items-center justify-between border-b border-line bg-surface-alt/60 px-3.5 py-2 sm:px-6 sm:py-3">
+        <span class="text-[11px] sm:text-xs font-medium text-muted">
+          Rezervace termínu přes RehaTab
+        </span>
+
+        <a
+          href={SITE.rehatabUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-semibold text-primary transition hover:underline"
+        >
+          <span>Otevřít na celou obrazovku</span>
+          <Icon name="external-link" size={13} />
+        </a>
+      </div>
+
+      {/* Samotný iframe ohraničený na presnú výšku obsahu */}
+      <div class="relative bg-white overflow-hidden">
+        <iframe
+          src="https://rezervace.rehatab.cz/fyziovita"
+          title="Rezervace termínu FyzioVita Brno"
+          width="100%"
+          height="530"
+          loading="lazy"
+          allow="payment"
+          style="border: 0; width: 100%; height: 530px; max-height: 82dvh; overflow: hidden;"
+          class="w-full bg-white"
+        ></iframe>
+      </div>
+
+      {/* Spodná lišta s uistením pacienta */}
+      <div class="border-t border-line/60 bg-tint/40 px-4 py-2.5 sm:px-5 sm:py-3 text-center text-[11px] sm:text-xs text-muted">
+        Potvrzení rezervace vám přijde ihned e-mailem. 24 hodin předem obdržíte automatické připomenutí.
+      </div>
+    </div>
+
+    {/* Kontaktné informácie a ordinačné hodiny */}
+    <div class="mt-8 sm:mt-12 grid grid-cols-1 items-start gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-10">
+      {/* 1. Karta kontaktných údajov a ordinačnej doby */}
+      <div class="flex flex-col justify-between rounded-[var(--radius-card)] border border-line bg-surface-alt p-5 sm:p-7 md:p-9 shadow-xs">
+        <div>
+          <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-ink">
+            Kontaktní údaje a ordinace
+          </h3>
+
+          <address class="mt-4 sm:mt-6 space-y-3.5 sm:space-y-4 not-italic text-xs sm:text-sm text-ink leading-relaxed">
+            {/* Adresa */}
+            <div class="flex items-start gap-3">
+              <span class="text-primary mt-0.5 shrink-0">
+                <Icon name="map-pin" size={18} />
+              </span>
+              <div>
+                <strong class="font-bold text-xs sm:text-sm">{SITE.name} &ndash; {SITE.address.street}</strong>
+                <p class="text-muted text-xs sm:text-sm mt-0.5">
+                  {SITE.address.floor}, zvonek {SITE.address.doorbell}
+                  <br />
+                  {SITE.address.zip} {SITE.address.city} ({SITE.address.district})
+                </p>
+                <a
+                  href={SITE.googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 mt-1 font-semibold text-primary hover:underline text-[11px] sm:text-xs"
+                >
+                  <span>Navigovat v Google Mapách</span>
+                  <Icon name="external-link" size={12} />
+                </a>
+              </div>
+            </div>
+
+            {/* MHD */}
+            <div class="flex items-start gap-3">
+              <span class="text-primary mt-0.5 shrink-0">
+                <Icon name="tram" size={18} />
+              </span>
+              <p class="text-muted text-xs sm:text-sm">
+                {SITE.transit}
+              </p>
+            </div>
+
+            {/* E-mail */}
+            <div class="flex items-start gap-3">
+              <span class="text-primary mt-0.5 shrink-0">
+                <Icon name="mail" size={18} />
+              </span>
+              <div>
+                <div class="flex items-center gap-2">
+                  <a
+                    href={`mailto:${SITE.email}`}
+                    class="font-bold text-primary hover:underline text-xs sm:text-sm"
+                  >
+                    {SITE.email}
+                  </a>
+                  <span class="rounded-full bg-tint px-2 py-0.5 text-[10px] font-semibold text-primary uppercase tracking-wider">
+                    pro dotazy
+                  </span>
+                </div>
+                <p class="text-[11px] sm:text-xs text-muted mt-0.5">
+                  Odpovídám {SITE.emailResponse}.
+                </p>
+              </div>
+            </div>
+
+            {/* Telefón */}
+            <div class="flex items-start gap-3">
+              <span class="text-primary mt-0.5 shrink-0">
+                <Icon name="phone" size={18} />
+              </span>
+              <div>
+                <a
+                  href={`tel:${SITE.phone}`}
+                  class="font-bold text-ink hover:text-primary transition-colors text-xs sm:text-sm"
+                >
+                  {SITE.phoneDisplay}
+                </a>
+                <p class="text-[11px] sm:text-xs text-muted mt-0.5">
+                  Během terapie nemohu zvedat telefon. Pro rezervaci využijte prosím online kalendář výše.
+                </p>
+              </div>
+            </div>
+
+            {/* Ordinačné hodiny */}
+            <div class="flex items-start gap-3 pt-3 border-t border-line/70">
+              <span class="text-primary mt-0.5 shrink-0">
+                <Icon name="clock" size={18} />
+              </span>
+              <div class="w-full">
+                <strong class="font-bold text-xs sm:text-sm">Ordinační doba:</strong>
+                <dl class="mt-1.5 space-y-1 text-[11px] sm:text-xs">
+                  {
+                    SITE.hours.map((h) => (
+                      <div class="flex justify-between text-muted">
+                        <dt class="font-semibold text-ink">{h.day}:</dt>
+                        <dd class="font-medium text-ink">{h.opens} &ndash; {h.closes}</dd>
+                      </div>
+                    ))
+                  }
+                  <div class="flex justify-between text-muted/60">
+                    <dt>Po &ndash; Čt, Ne:</dt>
+                    <dd>Zavřeno</dd>
+                  </div>
+                </dl>
+                <p class="text-[11px] sm:text-xs italic text-primary font-medium mt-1.5">
+                  {SITE.hoursNote}
+                </p>
+              </div>
+            </div>
+          </address>
+        </div>
+
+        {/* Fakturačné údaje */}
+        <div class="mt-5 pt-3.5 border-t border-line/70 text-[10px] sm:text-[11px] text-muted">
+          Provozovatel: {SITE.legalName}, IČO {SITE.ico} (sídlo {SITE.registeredOffice}).
+          {!SITE.vatPayer && ' Nejsem plátce DPH.'}
+        </div>
+      </div>
+
+      {/* 2. Google Mapa */}
+      <div>
+        <MapFacade />
+      </div>
+    </div>
+
+    {/* Navigácia ku vchodu */}
+    <div class="mt-10">
+      <Directions />
+    </div>
+
+    {/* Kontaktný formulár */}
+    {
+      SITE.flags.showContactForm && (
+        <div class="mt-10">
+          <ContactForm />
+        </div>
+      )
+    }
+  </Container>
+</section>

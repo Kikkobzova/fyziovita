@@ -1,0 +1,57 @@
+---
+import Container from '../ui/Container.astro';
+import Icon, { type IconName } from '../ui/Icon.astro';
+
+interface TrustItem {
+  icon: IconName;
+  title: string;
+  subtitle: string;
+}
+
+const trustItems: TrustItem[] = [
+  {
+    icon: 'graduation-cap',
+    title: 'Mgr. Aplikovaná fyzioterapie',
+    subtitle: 'Univerzita Palackého v Olomouci',
+  },
+  {
+    icon: 'award',
+    title: '10+ klinických pracovišť',
+    subtitle: 'FN Brno, lázně, rehabilitační ústavy',
+  },
+  {
+    icon: 'activity',
+    title: 'Specializované kurzy',
+    subtitle: 'SM systém, fascie, bolesti hlavy, sport',
+  },
+  {
+    icon: 'map-pin',
+    title: 'Brno-Trnitá',
+    subtitle: 'Křenová 71, tram Masná',
+  },
+];
+---
+
+<section class="border-y border-line/70 bg-surface py-8 md:py-10" aria-label="Důvěryhodnost a praxe">
+  <Container>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+      {
+        trustItems.map((item) => (
+          <div class="flex items-start gap-4">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-tint text-primary">
+              <Icon name={item.icon} size={24} />
+            </div>
+            <div class="flex flex-col">
+              <span class="text-sm font-bold text-ink sm:text-base leading-snug">
+                {item.title}
+              </span>
+              <span class="mt-0.5 text-xs text-muted sm:text-sm">
+                {item.subtitle}
+              </span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</section>

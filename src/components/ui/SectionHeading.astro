@@ -1,0 +1,78 @@
+---
+import SpineDots from './SpineDots.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  align?: 'left' | 'center';
+  withDots?: boolean;
+  class?: string;
+  titleTag?: 'h1' | 'h2' | 'h3';
+  titleClass?: string;
+  descriptionClass?: string;
+  id?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  description,
+  align = 'center',
+  withDots = false,
+  class: className = '',
+  titleTag: Tag = 'h2',
+  titleClass,
+  descriptionClass,
+  id,
+} = Astro.props;
+
+const isCenter = align === 'center';
+---
+
+<div
+  class:list={[
+    'flex flex-col',
+    isCenter ? 'items-center text-center' : 'items-start text-left',
+    className,
+  ]}
+>
+  {
+    (eyebrow || withDots) && (
+      <div class="mb-3 inline-flex items-center gap-2">
+        {withDots && <SpineDots direction="horizontal" count={3} size="sm" />}
+        {eyebrow && (
+          <span class="text-xs sm:text-sm font-semibold uppercase tracking-[0.14em] text-primary">
+            {eyebrow}
+          </span>
+        )}
+      </div>
+    )
+  }
+
+  <Tag
+    id={id}
+    class:list={[
+      'font-bold leading-tight tracking-tight text-ink',
+      titleClass || 'text-[clamp(1.75rem,1.3rem+1.8vw,2.6rem)]',
+    ]}
+  >
+    {title}
+  </Tag>
+
+  {
+    description && (
+      <p
+        class:list={[
+          'mt-3 sm:mt-4 max-w-prose leading-relaxed text-muted',
+          descriptionClass || 'text-base md:text-lg',
+          isCenter && 'mx-auto',
+        ]}
+      >
+        {description}
+      </p>
+    )
+  }
+
+  <slot />
+</div>

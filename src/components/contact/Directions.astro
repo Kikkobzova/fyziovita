@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import Icon from '../ui/Icon.astro';
+import entrancePhoto from '../../assets/physio-vita-photos/vchod-krenova-71.jpg';
+
+const steps = [
+  'Vstupte hlavním vchodem s označením Křenová 71 a zazvoňte na zvonek 106 pak sluchátko – otevřu vám.',
+  'Vyjděte po schodech nahoru a pokračujte rovně do chodby, pak dveřmi vlevo.',
+  'Znovu po schodech nahoru a hned první dveře vlevo.',
+  'Projděte doprava prostornou chodbou až na konec – ordinace FyzioVita je vlevo, vedle masérny.',
+];
+---
+
+<div class="rounded-[var(--radius-card)] border border-line bg-white p-5 sm:p-6 md:p-8 shadow-xs">
+  <div class="mb-5 sm:mb-6 flex items-center gap-3">
+    <div class="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-tint text-primary">
+      <Icon name="map-pin" size={18} />
+    </div>
+    <h3 class="text-lg font-bold text-ink sm:text-xl md:text-2xl">
+      Jak k nám trefíte
+    </h3>
+  </div>
+
+  <div class="grid grid-cols-1 items-center gap-6 sm:gap-8 lg:grid-cols-12 lg:gap-10">
+    {/* Fotografia vchodu do budovy (zobrazuje celý vchod vrátane striešky, dverí a zvonku) */}
+    <div class="lg:col-span-5 overflow-hidden rounded-2xl border border-line shadow-sm bg-surface-alt">
+      <Image
+        src={entrancePhoto}
+        alt="Vchod do budovy Křenová 71 v Brně s označením a zvonkem, kde sídlí ordinace FyzioVita"
+        class="w-full h-auto object-cover"
+        widths={[350, 500, 700]}
+        sizes="(max-width: 1024px) 100vw, 40vw"
+      />
+    </div>
+
+    {/* Očíslovaný návod */}
+    <div class="lg:col-span-7 flex flex-col justify-center">
+      <ol class="space-y-3 sm:space-y-4">
+        {
+          steps.map((step, idx) => (
+            <li class="flex items-start gap-3 text-xs sm:text-sm md:text-base leading-relaxed text-ink">
+              <span class="flex h-6 w-6 sm:h-7 sm:w-7 shrink-0 items-center justify-center rounded-full bg-tint text-[11px] sm:text-xs font-bold text-primary">
+                {idx + 1}
+              </span>
+              <span>{step}</span>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="mt-5 sm:mt-6 flex items-center gap-2.5 rounded-xl bg-surface-alt p-3 sm:p-3.5 text-[11px] sm:text-xs md:text-sm text-muted border border-line/50">
+        <Icon name="clock" size={16} class="text-primary shrink-0" />
+        <span>
+          <strong>Tip pro první návštěvu:</strong> Přijďte prosím 5 minut před začátkem rezervované terapie.
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

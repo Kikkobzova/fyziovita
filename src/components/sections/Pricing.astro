@@ -1,0 +1,114 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import BookingButton from '../ui/BookingButton.astro';
+import Icon from '../ui/Icon.astro';
+import { PRICING_ITEMS, PRICING_DETAILS } from '../../data/pricing';
+---
+
+<section id="cenik" class="bg-surface-alt py-16 md:py-24">
+  <Container>
+    <SectionHeading
+      eyebrow="Ceník"
+      title="Přehledné ceny bez překvapení"
+      description="Platíte pouze za čas, který věnuji vám. Péče není hrazena ze zdravotního pojištění."
+      withDots={true}
+      align="center"
+    />
+
+    {/* Karta ceníku */}
+    <div class="mt-12 mx-auto max-w-lg">
+      <div class="grid grid-cols-1">
+        {
+          PRICING_ITEMS.map((item) => (
+            <div
+              class:list={[
+                'relative flex flex-col justify-between overflow-hidden rounded-[var(--radius-card)] bg-white p-7 md:p-9 shadow-sm transition hover:shadow-md border-2 border-primary',
+              ]}
+            >
+              <div>
+                {/* Záhlavie karty s názvom a cenou */}
+                <div class="pb-6 border-b border-line">
+                  <span class="mb-3 inline-block rounded-full bg-tint px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+                    Osobní péče 1:1
+                  </span>
+                  <h3 class="text-xl font-bold text-ink md:text-2xl">
+                    {item.name}
+                  </h3>
+                  <p class="mt-1.5 text-sm text-muted">
+                    {item.description}
+                  </p>
+                  <div class="mt-4 flex items-baseline">
+                    <span class="text-3xl font-extrabold text-primary md:text-4xl">
+                      {item.price.toLocaleString('cs-CZ')} Kč
+                    </span>
+                    <span class="text-sm text-muted ml-2 font-medium">
+                      / 55 minut
+                    </span>
+                  </div>
+                </div>
+
+                {/* Zoznam výhod / zahrnutých služieb */}
+                <ul class="my-6 space-y-3.5">
+                  {
+                    item.features.map((feature) => (
+                      <li class="flex items-center gap-3 text-sm font-medium text-ink">
+                        <span class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-tint text-primary">
+                          <Icon name="check" size={13} strokeWidth={2.5} />
+                        </span>
+                        <span>{feature}</span>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+
+              {/* Rezervačné tlačidlo */}
+              <div class="mt-6 pt-2">
+                <BookingButton
+                  variant="primary"
+                  size="lg"
+                  location={`pricing-${item.id}`}
+                  class="w-full"
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      {/* Doplňujúce platobné a storno informácie */}
+      <div class="mt-8 flex flex-col items-center gap-3 text-center text-sm text-muted">
+        <div class="flex flex-wrap items-center justify-center gap-4 text-ink font-medium">
+          <span class="inline-flex items-center gap-1.5">
+            <Icon name="banknote" size={18} class="text-primary" />
+            <span>Hotově</span>
+          </span>
+          <span class="text-line">&bull;</span>
+          <span class="inline-flex items-center gap-1.5">
+            <Icon name="qr-code" size={18} class="text-primary" />
+            <span>QR platbou na místě</span>
+          </span>
+        </div>
+
+        {
+          PRICING_DETAILS.packagesNotice && (
+            <p class="text-xs text-primary font-semibold max-w-md">
+              {PRICING_DETAILS.packagesNotice}
+            </p>
+          )
+        }
+
+        <p>{PRICING_DETAILS.vatNotice}</p>
+
+        {
+          PRICING_DETAILS.cancellationPolicy && (
+            <p class="text-xs text-muted/80 max-w-md">
+              <strong>Storno podmínky:</strong> {PRICING_DETAILS.cancellationPolicy}
+            </p>
+          )
+        }
+      </div>
+    </div>
+  </Container>
+</section>

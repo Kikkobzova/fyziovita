@@ -1,0 +1,68 @@
+---
+import Button from './Button.astro';
+import Icon from './Icon.astro';
+import { SITE } from '../../config/site';
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'onDark';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+  location: string;
+  shortText?: boolean;
+  label?: string;
+  directExternal?: boolean;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  location,
+  shortText = false,
+  label: customLabel,
+  directExternal = false,
+} = Astro.props;
+
+const isActive = SITE.flags.rehatabActive;
+
+// Text tlačidla podľa stavu Rehatab a parametrov
+const defaultText = isActive
+  ? shortText
+    ? 'Rezervovat'
+    : 'Rezervovat termín online'
+  : shortText
+    ? 'Objednat se'
+    : 'Objednat se e-mailem';
+
+const buttonText = customLabel || defaultText;
+
+const href = isActive
+  ? directExternal
+    ? SITE.rehatabUrl
+    : '/#rezervace'
+  : `mailto:${SITE.email}?subject=Objedn%C3%A1vka%20na%20fyzioterapii`;
+
+const isExternal = isActive && directExternal;
+---
+
+<Button
+  href={href}
+  variant={variant}
+  size={size}
+  class={className}
+  data-cta={location}
+  target={isExternal ? '_blank' : undefined}
+  rel={isExternal ? 'noopener noreferrer' : undefined}
+>
+  <span>{buttonText}</span>
+  {
+    isExternal ? (
+      <>
+        <Icon name="external-link" size={size === 'lg' ? 18 : 16} />
+        <span class="sr-only">(otevře se v novém okně)</span>
+      </>
+    ) : (
+      <Icon name="calendar-check" size={size === 'lg' ? 18 : 16} />
+    )
+  }
+</Button>

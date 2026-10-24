@@ -1,0 +1,66 @@
+---
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { SITE } from '../../config/site';
+import { REVIEWS } from '../../data/reviews';
+
+const shouldRender = SITE.flags.showReviews && REVIEWS.length > 0;
+---
+
+{
+  shouldRender && (
+    <section id="recenze" class="bg-surface py-16 md:py-24">
+      <Container>
+        <SectionHeading
+          eyebrow="Recenze"
+          title="Zkušenosti klientů"
+          description="Přečtěte si hodnocení lidí, kterým fyzioterapie pomohla vrátit se k běžným aktivitám bez bolesti."
+          withDots={true}
+          align="center"
+        />
+
+        <div class="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+          {REVIEWS.map((review) => (
+            <div class="flex flex-col justify-between rounded-[var(--radius-card)] border border-line bg-white p-6 shadow-xs">
+              <div>
+                <div class="mb-3 flex items-center text-amber-500">
+                  {Array.from({ length: review.rating || 5 }).map(() => (
+                    <span class="text-lg">★</span>
+                  ))}
+                </div>
+                <p class="text-base italic leading-relaxed text-ink">
+                  &bdquo;{review.text}&ldquo;
+                </p>
+              </div>
+
+              <div class="mt-6 flex items-center justify-between border-t border-line/60 pt-4 text-xs text-muted">
+                <span class="font-bold text-ink">{review.author}</span>
+                <span class="flex items-center gap-1 text-muted/80">
+                  <Icon name="check" size={14} class="text-primary" />
+                  <span>{review.source}</span>
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {SITE.googleReviewUrl && (
+          <div class="mt-10 text-center">
+            <Button
+              href={SITE.googleReviewUrl}
+              variant="secondary"
+              size="md"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Zobrazit všechny recenze na Google</span>
+              <Icon name="external-link" size={16} />
+            </Button>
+          </div>
+        )}
+      </Container>
+    </section>
+  )
+}

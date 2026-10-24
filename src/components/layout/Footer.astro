@@ -1,0 +1,114 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../ui/Container.astro';
+import { SITE } from '../../config/site';
+import logoFull from '../../assets/logo/processed/logo-full-transparent.png';
+
+const currentYear = new Date().getFullYear();
+
+const navItems = [
+  { label: 'Služby', href: '/#sluzby' },
+  { label: 'Ceník', href: '/#cenik' },
+  { label: 'O mně', href: '/#o-mne' },
+  { label: 'Časté dotazy', href: '/#faq' },
+  { label: 'Kontakt', href: '/#kontakt' },
+  ...(SITE.flags.showBlogInNav ? [{ label: 'Články', href: '/clanky/' }] : []),
+];
+---
+
+<footer class="border-t border-line bg-[var(--color-ink)] text-white/80">
+  <Container class="py-7 sm:py-9 md:py-11">
+    {/* 3 stĺpce vycentrované na stred stránky s dokonalou symetriou */}
+    <div class="max-w-4xl mx-auto w-full grid grid-cols-3 gap-3 sm:gap-8 md:gap-12 items-start">
+      {/* 1. Stĺpec: Logo (zväčšené o ~20 %) a Mgr. Kristýna Kobzová */}
+      <div class="flex flex-col items-start gap-2.5 sm:gap-3">
+        <a
+          href="/"
+          aria-label="FyzioVita – úvodní stránka"
+          class="inline-block rounded-xl bg-white px-2.5 py-1.5 sm:px-3 sm:py-2 shadow-xs transition hover:opacity-95"
+        >
+          <Image
+            src={logoFull}
+            alt="FyzioVita"
+            width={170}
+            class="h-7 sm:h-9 md:h-11 w-auto object-contain"
+          />
+        </a>
+        <div class="text-[11px] sm:text-xs md:text-sm text-white/75 leading-tight sm:leading-relaxed">
+          <p class="font-semibold text-white">
+            {SITE.personName}
+          </p>
+          <p class="text-white/60 text-[10px] sm:text-xs">
+            Fyzioterapeutická ordinace Brno
+          </p>
+        </div>
+      </div>
+
+      {/* 2. Stĺpec: Rýchla navigácia (vycentrovaná presne na stred stránky) */}
+      <div class="flex flex-col items-start sm:items-center sm:justify-self-center">
+        <div class="flex flex-col items-start">
+          <h3 class="mb-1.5 sm:mb-2.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-white">
+            Navigace
+          </h3>
+          <ul class="flex flex-col space-y-1 sm:space-y-1.5 text-[11px] sm:text-xs md:text-sm text-white/75">
+            {
+              navItems.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class="transition-colors hover:text-white hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      {/* 3. Stĺpec: Kontakt a ordinácia (zarovnaný ku pravému okraju vycentrovaného bloku) */}
+      <div class="flex flex-col items-start sm:justify-self-end">
+        <h3 class="mb-1.5 sm:mb-2.5 text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-white">
+          Kontakt
+        </h3>
+        <address class="flex flex-col space-y-1 sm:space-y-1.5 text-[11px] sm:text-xs md:text-sm not-italic text-white/75">
+          <div>
+            <span>{SITE.address.street}</span>
+            <span class="block text-white/55 text-[10px] sm:text-xs">{SITE.address.city}</span>
+          </div>
+          <a
+            href={`tel:${SITE.phone}`}
+            class="font-medium text-white hover:underline transition-colors break-all sm:break-normal"
+          >
+            {SITE.phoneDisplay}
+          </a>
+          <a
+            href={`mailto:${SITE.email}`}
+            class="hover:text-white transition-colors break-all sm:break-normal"
+          >
+            {SITE.email}
+          </a>
+          <div class="pt-0.5 text-[10px] sm:text-xs text-white/60 leading-tight">
+            <span>Pá 16–20</span>
+            <span class="mx-1">&middot;</span>
+            <span>So 8–13</span>
+            <span class="block text-[9px] sm:text-[10px] text-white/45 italic mt-0.5">
+              (pouze na objednání)
+            </span>
+          </div>
+        </address>
+      </div>
+    </div>
+
+    {/* Spodná vycentrovaná právna lišta */}
+    <div class="mt-8 border-t border-white/10 pt-4 text-center text-[10px] sm:text-[11px] leading-relaxed text-white/50 w-full">
+      <p>
+        &copy; {currentYear} {SITE.name} &middot; Provozovatel: {SITE.legalName}, IČO {SITE.ico}, sídlo {SITE.registeredOffice} &middot; {!SITE.vatPayer && 'Nejsem plátce DPH'} &middot; <a href="/ochrana-osobnich-udaju/" class="underline hover:text-white">Ochrana osobních údajů</a>
+      </p>
+      <p class="mt-1 text-[9px] sm:text-[10px] text-white/40">
+        Informace na tomto webu mají pouze informativní charakter a nenahrazují odborné lékařské vyšetření.
+      </p>
+    </div>
+  </Container>
+</footer>

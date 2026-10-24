@@ -1,0 +1,159 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+import SpineDots from '../ui/SpineDots.astro';
+import { SITE } from '../../config/site';
+import { EDUCATION_LIST, COURSES_LIST, PRACTICE_LIST } from '../../data/education';
+import portraitPhoto from '../../assets/physio-vita-photos/kristyna-kobzova-portret.jpg';
+---
+
+<section id="o-mne" class="bg-surface py-16 md:py-24">
+  <Container>
+    {/* Horná časť: Portrét + Príbeh & Filozofia */}
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+      {/* Fotografia portrétu (3:4) s dekoratívnym pozadím – na mobile primerane kompaktná */}
+      <div class="lg:col-span-5 relative mx-auto w-full max-w-[200px] sm:max-w-[260px] lg:max-w-none">
+        <div
+          class="absolute -inset-2.5 sm:-inset-3 rounded-[var(--radius-img)] bg-tint -z-10 translate-x-2 translate-y-2 sm:translate-x-3 sm:translate-y-3"
+          aria-hidden="true"
+        ></div>
+
+        <div class="absolute -top-4 -right-4 z-10 hidden sm:block">
+          <SpineDots direction="vertical" count={4} size="md" />
+        </div>
+
+        <div class="overflow-hidden rounded-2xl sm:rounded-[var(--radius-img)] shadow-md border border-line">
+          <Image
+            src={portraitPhoto}
+            alt={`Mgr. Kristýna Kobzová, fyzioterapeutka ${SITE.name} Brno`}
+            class="aspect-3/4 w-full object-cover"
+            widths={[250, 400, 700]}
+            sizes="(max-width: 640px) 200px, (max-width: 1024px) 260px, 40vw"
+          />
+        </div>
+      </div>
+
+      {/* Textový profil */}
+      <div class="lg:col-span-7 flex flex-col items-start text-left">
+        <div class="mb-3 inline-flex items-center gap-2">
+          <SpineDots direction="horizontal" count={3} size="sm" />
+          <span class="text-sm font-semibold uppercase tracking-[0.14em] text-primary">
+            O mně
+          </span>
+        </div>
+
+        <h2 class="text-[clamp(1.75rem,1.3rem+1.8vw,2.6rem)] font-bold leading-tight tracking-tight text-ink">
+          {SITE.personName}
+        </h2>
+
+        <p class="mt-1 text-lg font-semibold text-primary">
+          Fyzioterapeutka &middot; {SITE.name} Brno
+        </p>
+
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-muted md:text-lg">
+          <p>
+            Vystudovala jsem fyzioterapii na Fakultě sportovních studií Masarykovy univerzity v&nbsp;Brně a&nbsp;navazující magisterské studium jsem dokončila na Fakultě tělesné kultury Univerzity Palackého v&nbsp;Olomouci. Už během studia jsem získávala zkušenosti na řadě lůžkových i&nbsp;ambulantních pracovišť.
+          </p>
+          <p>
+            Dnes pracuji jako fyzioterapeutka v&nbsp;ambulantním provozu a&nbsp;vedle toho vedu vlastní praxi FyzioVita, kde se zaměřuji na komplexní péči o&nbsp;pohybový aparát přesně podle vašich potřeb.
+          </p>
+          <p>
+            Sama rekreačně běhám, jezdím na kole, věnuji se kalistenice a&nbsp;silovému tréninku. Vím, jak frustrující je, když vás tělo zastaví – a&nbsp;jak skvělý je pocit, když se zase můžete naplno hýbat.
+          </p>
+        </div>
+
+        {/* Citát */}
+        <blockquote class="mt-8 rounded-r-2xl border-l-4 border-[var(--color-deco-teal)] bg-tint/60 p-5 pl-6 text-lg italic text-ink md:text-xl">
+          &bdquo;Mým cílem není, abyste ke mně chodili pořád. Chci, abyste rozuměli svému tělu a&nbsp;věděli, jak se o&nbsp;něj postarat.&ldquo;
+        </blockquote>
+      </div>
+    </div>
+
+    {/* Spodná časť: 3 karty (Vzdělání, Kurzy, Praxe) – na mobile kompaktné */}
+    <div class="mt-10 sm:mt-16 grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-3">
+      {/* 1. Karta Vzdělání */}
+      <div class="rounded-2xl sm:rounded-[var(--radius-card)] border border-line bg-white p-4.5 sm:p-6 md:p-8 shadow-xs">
+        <div class="mb-3 sm:mb-5 inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-tint text-primary">
+          <Icon name="graduation-cap" size={22} />
+        </div>
+        <h3 class="text-lg sm:text-xl font-bold text-ink">Vzdělání</h3>
+        <ul class="mt-3 sm:mt-4 space-y-3 sm:space-y-4 text-xs sm:text-sm leading-relaxed">
+          {
+            EDUCATION_LIST.map((edu) => (
+              <li class="border-b border-line/60 pb-2.5 sm:pb-3 last:border-0 last:pb-0">
+                <span class="font-bold text-ink">
+                  {edu.degree} &ndash; {edu.field}
+                </span>
+                <span class="block text-muted text-[11px] sm:text-xs mt-0.5">
+                  {edu.institution} ({edu.period})
+                </span>
+                <span class="block text-muted/80 text-[11px] sm:text-xs italic mt-1">
+                  Diplomová práce: {edu.thesis}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      {/* 2. Karta Kurzy */}
+      <div class="rounded-2xl sm:rounded-[var(--radius-card)] border border-line bg-white p-4.5 sm:p-6 md:p-8 shadow-xs">
+        <div class="mb-3 sm:mb-5 inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-tint text-primary">
+          <Icon name="award" size={22} />
+        </div>
+        <h3 class="text-lg sm:text-xl font-bold text-ink">Odborné kurzy a vzdělávání</h3>
+        <ul class="mt-3 sm:mt-4 space-y-2 text-xs sm:text-sm text-ink leading-relaxed">
+          {
+            COURSES_LIST.map((course) => (
+              <li class="flex items-start gap-2">
+                <span class="text-primary mt-0.5 shrink-0">
+                  <Icon name="check" size={13} strokeWidth={2.5} />
+                </span>
+                <span>{course}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      {/* 3. Karta Praxe */}
+      <div class="rounded-2xl sm:rounded-[var(--radius-card)] border border-line bg-white p-4.5 sm:p-6 md:p-8 shadow-xs">
+        <div class="mb-3 sm:mb-5 inline-flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-tint text-primary">
+          <Icon name="activity" size={22} />
+        </div>
+        <h3 class="text-lg sm:text-xl font-bold text-ink">Klinická praxe a zkušenosti</h3>
+        <ul class="mt-3 sm:mt-4 space-y-2.5 sm:space-y-3.5 text-xs sm:text-sm leading-relaxed">
+          {
+            PRACTICE_LIST.map((item) => (
+              <li class="border-b border-line/60 pb-2 sm:pb-2.5 last:border-0 last:pb-0">
+                <span class="font-semibold text-ink">{item.title}</span>
+                {item.period && (
+                  <span class="block text-[11px] sm:text-xs text-primary font-medium mt-0.5">
+                    {item.period}
+                  </span>
+                )}
+                {item.note && (
+                  <span class="block text-[11px] sm:text-xs text-muted mt-0.5">
+                    {item.note}
+                  </span>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    {/* Voliteľná poznámka o spolupráci */}
+    {
+      SITE.flags.showCollaborationNote && (
+        <div class="mt-8 flex flex-col items-center text-center">
+          <p class="text-xs text-muted">
+            Ordinace {SITE.name} sídlí ve stejné budově jako FyzioChalupa.
+          </p>
+        </div>
+      )
+    }
+  </Container>
+</section>

@@ -1,0 +1,47 @@
+---
+interface Props {
+  direction?: 'vertical' | 'horizontal';
+  count?: 3 | 4 | 5;
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const {
+  direction = 'vertical',
+  count = 3,
+  size = 'md',
+  class: className = '',
+} = Astro.props;
+
+const dotSizes: Record<'sm' | 'md' | 'lg', string> = {
+  sm: 'w-1.5 h-1.5',
+  md: 'w-2 h-2',
+  lg: 'w-2.5 h-2.5',
+};
+
+// Farebná postupnosť odvodená z loga FyzioVita (modrá, teal, zelená)
+const colors = [
+  'bg-[var(--color-deco-blue)]',
+  'bg-[var(--color-deco-teal)]',
+  'bg-[var(--color-deco-green)]',
+  'bg-[var(--color-deco-teal)]',
+  'bg-[var(--color-deco-blue)]',
+];
+
+const selectedColors = colors.slice(0, count);
+---
+
+<div
+  class:list={[
+    'inline-flex shrink-0 items-center justify-center',
+    direction === 'vertical' ? 'flex-col space-y-1.5' : 'flex-row space-x-1.5',
+    className,
+  ]}
+  aria-hidden="true"
+>
+  {
+    selectedColors.map((colorClass) => (
+      <span class:list={['rounded-full transition-transform', dotSizes[size], colorClass]} />
+    ))
+  }
+</div>
