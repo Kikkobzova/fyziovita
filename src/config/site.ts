@@ -33,7 +33,7 @@ export const SITE = {
 
   phone: '+420732958692',
   phoneDisplay: '+420 732 958 692',
-  email: 'kikkobzova@gmail.com', // [DOPLNIT] neskôr pravdepodobne info@fyziovita.cz
+  email: 'kristyna@fyziovita.cz',
   emailResponse: 'obvykle do 2 pracovních dnů',
 
   hours: [
