@@ -14,7 +14,7 @@ export function getFaqList(): FaqItem[] {
     },
     {
       question: 'Hradí terapii zdravotní pojišťovna?',
-      answer: `Ne, jde o samoplátecké služby. Terapie (${SITE.price.duration} minut) stojí ${SITE.price.therapy} Kč a platíte na místě hotově nebo QR platbou. K dispozici je také zvýhodněný balíček 5 terapií za ${SITE.price.packagePrice} Kč.`,
+      answer: `Ne, jde o samoplátecké služby. Terapie (${SITE.price.duration} minut) stojí ${SITE.price.therapy} Kč a platíte na místě hotově nebo QR platbou.`,
     },
     {
       question: 'Jak se objednám?',

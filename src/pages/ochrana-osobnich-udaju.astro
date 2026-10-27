@@ -1,0 +1,208 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/layout/Footer.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import { SITE } from '../config/site';
+---
+
+<BaseLayout
+  title={`Ochrana osobních údajů (GDPR) | ${SITE.name} – ${SITE.personName}`}
+  description={`Informace o zpracování a ochraně osobních údajů pacientů a návštěvníků webu fyzioterapeutické ordinace FyzioVita (${SITE.personName}).`}
+>
+  <section class="py-12 sm:py-16 md:py-20 bg-surface-alt">
+    <Container class="max-w-4xl">
+      <!-- Breadcrumb / Návrat -->
+      <div class="mb-6">
+        <a
+          href="/"
+          class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-primary hover:underline transition"
+        >
+          <Icon name="arrow-right" size={14} class="rotate-180" />
+          <span>Zpět na úvodní stránku</span>
+        </a>
+      </div>
+
+      <!-- Hlavná karta s obsahom -->
+      <div class="rounded-2xl border border-line bg-white p-6 sm:p-10 md:p-12 shadow-sm">
+        <header class="border-b border-line pb-6 mb-8">
+          <span class="inline-block rounded-full bg-tint px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+            Právní informace & GDPR
+          </span>
+          <h1 class="mt-3 text-2xl sm:text-3xl md:text-4xl font-extrabold text-ink tracking-tight">
+            Zásady zpracování a ochrany osobních údajů
+          </h1>
+          <p class="mt-2 text-xs sm:text-sm text-muted">
+            Platné a účinné od 1. 1. 2026 &middot; FyzioVita, Brno
+          </p>
+        </header>
+
+        <div class="prose prose-slate max-w-none text-ink/85 text-sm sm:text-base leading-relaxed space-y-6">
+          <p>
+            Vážíme si vaší důvěry a ochranu vašeho soukromí a osobních údajů bereme s maximální vážností a profesionalitou. Tento dokument poskytuje přehledné informace o tom, jaké osobní údaje zpracováváme, za jakým účelem, na základě jakých právních titulů a jaká jsou vaše práva v souladu s Nařízením Evropského parlamentu a Rady (EU) 2016/679 (dále jen <strong>GDPR</strong>) a platnými právními předpisy ČR.
+          </p>
+
+          <!-- 1. Správce -->
+          <div class="rounded-xl bg-surface-alt/70 border border-line p-5">
+            <h2 class="text-base sm:text-lg font-bold text-ink mb-2">
+              1. Kdo je správcem vašich osobních údajů?
+            </h2>
+            <p class="mb-2">
+              Správcem osobních údajů je:
+            </p>
+            <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm font-medium">
+              <li><strong>Jméno a příjmení:</strong> {SITE.legalName}</li>
+              <li><strong>IČO:</strong> {SITE.ico} (zapsaná v živnostenském rejstříku)</li>
+              <li><strong>Sídlo:</strong> {SITE.registeredOffice}</li>
+              <li><strong>Místo poskytování péče (provozovna):</strong> {SITE.address.street}, {SITE.address.zip} {SITE.address.city}</li>
+              <li><strong>E-mail:</strong> <a href={`mailto:${SITE.email}`} class="text-primary underline">{SITE.email}</a></li>
+              <li><strong>Telefon:</strong> <a href={`tel:${SITE.phone}`} class="text-primary underline">{SITE.phoneDisplay}</a></li>
+            </ul>
+          </div>
+
+          <!-- 2. Účely a právní základy -->
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-ink mb-3">
+              2. Jaké osobní údaje zpracováváme a proč?
+            </h2>
+            <p>Zpracováváme pouze údaje, které jsou nezbytné pro bezpečné a odborné poskytování fyzioterapeutických služeb a provoz ordinace:</p>
+            
+            <div class="mt-4 space-y-4">
+              <div class="border-l-2 border-primary pl-4">
+                <h3 class="font-semibold text-ink text-sm sm:text-base">
+                  A. Rezervace termínu, komunikace a klientský servis
+                </h3>
+                <p class="text-xs sm:text-sm text-muted mt-1">
+                  <strong>Údaje:</strong> jméno, příjmení, telefonní číslo, e-mailová adresa, případně čas a datum zvoleného termínu.<br />
+                  <strong>Účel:</strong> potvrzení rezervace, zaslání SMS/e-mailové připomínky, případná domluva změny termínu a komunikace dotazů.<br />
+                  <strong>Právní základ:</strong> plnění smlouvy o poskytování služeb, resp. předsmluvní jednání na vaši žádost dle čl. 6 odst. 1 písm. b) GDPR.
+                </p>
+              </div>
+
+              <div class="border-l-2 border-primary pl-4">
+                <h3 class="font-semibold text-ink text-sm sm:text-base">
+                  B. Odborné fyzioterapeutické vyšetření a vedení terapie
+                </h3>
+                <p class="text-xs sm:text-sm text-muted mt-1">
+                  <strong>Údaje:</strong> anamnéza, popis obtíží, informace o prodělaných úrazech, operacích či onemocněních, záznamy o průběhu a výsledcích pohybové terapie, lékařské zprávy předložené pacientem.<br />
+                  <strong>Účel:</strong> bezpečné vyšetření pohybového aparátu, stanovení individuálního terapeutického plánu a vyloučení kontraindikací fyzioterapie.<br />
+                  <strong>Právní základ:</strong> poskytování zdravotní či preventivní péče a plnění profesních povinností v souladu s čl. 9 odst. 2 písm. h) GDPR.
+                </p>
+              </div>
+
+              <div class="border-l-2 border-primary pl-4">
+                <h3 class="font-semibold text-ink text-sm sm:text-base">
+                  C. Účetnictví a daňová evidence
+                </h3>
+                <p class="text-xs sm:text-sm text-muted mt-1">
+                  <strong>Údaje:</strong> jméno, příjmení, fakturovaná částka a datum platby.<br />
+                  <strong>Účel:</strong> vystavení dokladu o zaplacení a plnění zákonných daňových a účetních povinností.<br />
+                  <strong>Právní základ:</strong> plnění právní povinnosti správce dle čl. 6 odst. 1 písm. c) GDPR.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Doba uchovávání -->
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-ink mb-2">
+              3. Jak dlouho osobní údaje uchováváme?
+            </h2>
+            <p class="text-xs sm:text-sm">
+              Údaje uchováváme po dobu nezbytnou k naplnění účelu:
+            </p>
+            <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm mt-2 text-muted">
+              <li>Údaje pro rezervaci a komunikaci po dobu trvání poskytování péče a přiměřenou dobu po jejím ukončení (pro případ navazujících kontrol či uplatnění práv).</li>
+              <li>Terapeutickou dokumentaci uchováváme s ohledem na profesní standardy péče a promlčecí lhůty.</li>
+              <li>Účetní a daňové doklady jsou archivovány po dobu 10 let stanovenou zákonem o DPH a zákonem o účetnictví.</li>
+            </ul>
+          </div>
+
+          <!-- 4. Kdo má k údajům přístup -->
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-ink mb-2">
+              4. Komu mohou být údaje zpřístupněny?
+            </h2>
+            <p class="text-xs sm:text-sm">
+              Veškeré údaje a informace o vašem zdravotním stavu jsou přísně důvěrné a podléhají profesní mlčenlivosti. Osobní údaje neprodáváme ani neposkytujeme žádným neoprávněným subjektům ani marketingovým agenturám. Ke zpracování využíváme pouze prověřené zpracovatele technických služeb:
+            </p>
+            <ul class="list-disc list-inside space-y-1 text-xs sm:text-sm mt-2 text-muted">
+              <li><strong>RehaTab</strong> – provozovatel certifikovaného online rezervačního systému pro zdravotnická a fyzioterapeutická pracoviště (pokud využijete online rezervaci).</li>
+              <li><strong>Cloudflare & Google</strong> – provozovatelé zabezpečené webové infrastruktury a e-mailové komunikace.</li>
+            </ul>
+          </div>
+
+          <!-- 5. Cookies – Zdôraznené -->
+          <div class="rounded-xl border border-emerald-200 bg-emerald-50/60 p-5">
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-white">
+                <Icon name="check" size={14} strokeWidth={2.5} />
+              </span>
+              <div>
+                <h2 class="text-base font-bold text-ink">
+                  5. Soubory cookies a sledovací technologie
+                </h2>
+                <p class="mt-1 text-xs sm:text-sm text-ink/80 leading-relaxed">
+                  Webové stránky <strong>fyziovita.cz</strong> jsou vytvořeny s maximálním důrazem na soukromí návštěvníků. <strong>Tento web nepoužívá žádné analytické, reklamní, sledovací ani marketingové soubory cookies třetích stran</strong> (jako jsou Google Analytics, Meta Pixel a podobně).
+                </p>
+                <p class="mt-2 text-xs sm:text-sm text-ink/80 leading-relaxed">
+                  Web nevyžaduje zobrazení obtěžující cookie lišty, protože neprovádí žádné profilování ani sledování vašeho chování na internetu. Načítání stránek je tak zcela soukromé a bleskově rychlé.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Práva uživatele -->
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-ink mb-2">
+              6. Jaká jsou vaše práva?
+            </h2>
+            <p class="text-xs sm:text-sm">
+              Dle nařízení GDPR máte plné právo:
+            </p>
+            <ul class="list-disc list-inside space-y-1.5 text-xs sm:text-sm mt-2 text-muted">
+              <li><strong>Právo na přístup:</strong> požadovat informaci, jaké vaše osobní údaje zpracováváme.</li>
+              <li><strong>Právo na opravu:</strong> požádat o aktualizaci či opravu nepřesných údajů.</li>
+              <li><strong>Právo na výmaz:</strong> požádat o vymazání údajů, pokud pominul účel nebo zákonná povinnost k jejich archivaci.</li>
+              <li><strong>Právo na omezení zpracování:</strong> v případech stanovených čl. 18 GDPR.</li>
+              <li><strong>Právo vznést námitku:</strong> proti zpracování na základě oprávněného zájmu.</li>
+              <li>
+                <strong>Právo podat stížnost:</strong> Pokud se domníváte, že s vašimi údaji není nakládáno v souladu se zákonem, máte právo obrátit se na dozorový úřad:
+                <div class="mt-1 pl-5">
+                  <strong>Úřad pro ochranu osobních údajů (ÚOOÚ)</strong><br />
+                  Pplk. Sochora 27, 170 00 Praha 7 &middot; <a href="https://www.uoou.gov.cz" target="_blank" rel="noopener noreferrer" class="text-primary underline">www.uoou.gov.cz</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 7. Kontakt pre uplatnenie práv -->
+          <div class="border-t border-line pt-6">
+            <h2 class="text-base sm:text-lg font-bold text-ink mb-2">
+              7. Jak nás můžete kontaktovat?
+            </h2>
+            <p class="text-xs sm:text-sm text-muted">
+              V případě jakýchkoli dotazů ohledně zpracování osobních údajů nebo pro uplatnění vašich práv se můžete kdykoliv obrátit na e-mail{' '}
+              <a href={`mailto:${SITE.email}`} class="font-semibold text-primary underline">{SITE.email}</a>{' '}
+              nebo telefonicky na <a href={`tel:${SITE.phone}`} class="font-semibold text-primary underline">{SITE.phoneDisplay}</a>.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-10 pt-6 border-t border-line flex flex-col sm:flex-row items-center justify-between gap-4">
+          <Button href="/" variant="primary" size="md">
+            <Icon name="arrow-right" size={14} class="rotate-180" />
+            <span>Zpět na úvodní stránku</span>
+          </Button>
+
+          <Button href="/#kontakt" variant="secondary" size="md">
+            <span>Kontakt a rezervace</span>
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
