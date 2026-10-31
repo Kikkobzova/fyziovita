@@ -54,9 +54,13 @@ export const SITE = {
   rehatabUrl: 'https://rezervace.rehatab.cz/fyziovita',
   googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=K%C5%99enov%C3%A1+479%2F71%2C+602+00+Brno',
   googleMapsEmbed: 'https://www.google.com/maps?q=K%C5%99enov%C3%A1+479%2F71,+602+00+Brno&output=embed',
-  googleReviewUrl: '', // [DOPLNIT] po založení Google Business Profile
+  googleReviewUrl: 'https://g.page/r/CeKEgBLYm0lOEBM/review',
+  instagramUrl: 'https://www.instagram.com/fyziovita',
 
-  sameAs: [] as string[], // [DOPLNIT] Google Business Profile, Firmy.cz, Instagram, Facebook, Rehatab
+  sameAs: [
+    'https://www.instagram.com/fyziovita',
+    'https://g.page/r/CeKEgBLYm0lOEBM',
+  ] as string[],
 
   flags: {
     rehatabActive: true,          // online rezervace cez RehaTab je aktívna
