@@ -32,6 +32,7 @@ export const EDUCATION_LIST: EducationItem[] = [
 ];
 
 export const COURSES_LIST: string[] = [
+  'Viscerovertebrální vztahy a jejich využití v klinické praxi (Bitnar Institute – PhDr. Petr Bitnar, Ph.D.)',
   'Dynamická neuromuskulární stabilizace podle Koláře (DNS) – Úroveň A (Rehabilitation Prague School)',
   'Úvod do fyzioterapie fasciálních tkání (RehaEduca)',
   'Posturálně–zátěžová fyzioterapie: Část A – Myofasciální bolestivý syndrom (3SB FYZIO)',
